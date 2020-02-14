@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         initFragments();
+        getSupportActionBar().hide();
     }
     private void initFragments() {
         indexFragment = new IndexFragment();
