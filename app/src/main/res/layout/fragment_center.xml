@@ -16,9 +16,9 @@
         >
         <ImageView
             android:id="@+id/userImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/user"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/user_image_shape"
             android:gravity="center"/>
         <TextView
             android:id="@+id/userName"
@@ -26,12 +26,12 @@
             android:layout_height="40dp"
             android:textSize="30dp"
             android:textColor="#FFF"
-            android:text="USER"/>
+            android:text="未登录"/>
     </LinearLayout>
     <ListView
         android:id="@+id/listviewBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="20dp"
         >
 

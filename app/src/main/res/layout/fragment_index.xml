@@ -4,11 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".IndexFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="hello_blank_fragment1" />
-
+        android:gravity="center"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/Manual"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_circle_shape"
+            android:text="手动模式"
+            android:textColor="#FFF"
+            android:textSize="20dp"/>
+        <Button
+            android:layout_marginTop="30dp"
+            android:id="@+id/Auto"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_circle_shape"
+            android:text="智能模式"
+            android:textColor="#FFF"
+            android:textSize="20dp"
+            />
+    </LinearLayout>
 </FrameLayout>

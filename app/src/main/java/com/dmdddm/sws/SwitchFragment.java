@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class SwitchFragment extends Fragment {
-    private OnFragmentInteractionListener mListener;
 
     public SwitchFragment() {
         // Required empty public constructor

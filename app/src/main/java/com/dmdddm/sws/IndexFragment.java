@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 
 public class IndexFragment extends Fragment {
-    private OnFragmentInteractionListener mListener;
 
 
     public IndexFragment() {
