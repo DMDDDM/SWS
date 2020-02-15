@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,6 +92,30 @@ public class CenterFragment extends Fragment{
                 new String[]{"image","Item"},                         //与第二个参数的key名称相同
                 new int[]{R.id.ItemImage,R.id.ItemTitle});            //写入的控件id
         listView.setAdapter(simpleAdapter);                       //启动适配器
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0:
+                        Toast.makeText(getActivity(),"第1个",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(getActivity(),"第2个",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getActivity(),"第3个",Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(getActivity(),"第4个",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+
+
+
         /*******/
         return view;
     }
