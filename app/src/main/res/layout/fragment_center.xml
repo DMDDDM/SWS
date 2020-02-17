@@ -26,7 +26,7 @@
             android:layout_height="40dp"
             android:textSize="30dp"
             android:textColor="#FFF"
-            android:text="未登录"/>
+            android:text="点击登录"/>
     </LinearLayout>
     <ListView
         android:id="@+id/listviewBox"

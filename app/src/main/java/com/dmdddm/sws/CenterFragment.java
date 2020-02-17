@@ -1,5 +1,6 @@
 package com.dmdddm.sws;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -48,6 +49,7 @@ public class CenterFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_center, container, false);
+        final Intent login = new Intent(getActivity(),Login.class);
 
         /**此处填写代码**/
         userImage = view.findViewById(R.id.userImage);
@@ -57,13 +59,13 @@ public class CenterFragment extends Fragment{
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
         /***用户名点击事件**/
         userName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(login);
 
             }
         });
