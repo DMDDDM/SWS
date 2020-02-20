@@ -31,8 +31,6 @@ public class EncoderByMd5 {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
-
         return null;
     }
 }

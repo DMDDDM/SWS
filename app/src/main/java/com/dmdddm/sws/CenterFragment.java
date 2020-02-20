@@ -50,8 +50,7 @@ public class CenterFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_center, container, false);
         final Intent login = new Intent(getActivity(),Login.class);
-
-        /**此处填写代码**/
+    /**此处填写代码**/
         userImage = view.findViewById(R.id.userImage);
         userName = view.findViewById(R.id.userName);
         listView = view.findViewById(R.id.listviewBox);
@@ -69,7 +68,8 @@ public class CenterFragment extends Fragment{
 
             }
         });
-        /**listView点击事件**/
+
+        /**listView填充**/
 
         String[] Item = {"设置","账号安全","开发者模式","退出账户"};
         int[] imageViews ={ R.drawable.setting,R.drawable.lock,R.drawable.develop,R.drawable.logout};
@@ -95,7 +95,7 @@ public class CenterFragment extends Fragment{
                 new int[]{R.id.ItemImage,R.id.ItemTitle});            //写入的控件id
         listView.setAdapter(simpleAdapter);                       //启动适配器
 
-
+        final Intent iDeveloper = new Intent(getActivity(),Developer.class);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -107,7 +107,7 @@ public class CenterFragment extends Fragment{
                         Toast.makeText(getActivity(),"第2个",Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Toast.makeText(getActivity(),"第3个",Toast.LENGTH_SHORT).show();
+                        startActivity(iDeveloper);
                         break;
                     case 3:
                         Toast.makeText(getActivity(),"第4个",Toast.LENGTH_SHORT).show();
@@ -118,7 +118,7 @@ public class CenterFragment extends Fragment{
 
 
 
-        /*******/
+    /*******/
         return view;
     }
 

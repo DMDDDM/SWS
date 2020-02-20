@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.net.HttpURLConnection;
 
 import static com.dmdddm.sws.EncoderByMd5.getMD5String;
 
@@ -64,7 +67,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void login(){
         String name = nameText.getText().toString();
         String pwd = getMD5String(passwordText.getText().toString());
+        String path = "https://www.dmdddm.cn/SWS/LoginController?Mode=login&name="+name+"&pwd="+pwd;
 
+        String[] item={"LoginStatus"};
         //如果账号为空 事件
         if (name.isEmpty()){
             nameText.setHint("账户名不能为空!!!");
@@ -72,11 +77,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         //账号名不为空时
         else {
+            MyHttpConnect myHttpConnect = new MyHttpConnect();
+            myHttpConnect.MyHttpconnect(path);
+            String[] result =  myHttpConnect.getJson(item);
+            if (result[0].equals("successful")){
+                /**登录成功**/
+                Toast.makeText(this,"登录成功",Toast.LENGTH_LONG);
+            }
+            else {
 
-           // MyHttpConnect myHttpConnect = new MyHttpConnect();
+                /**登录失败**/
+                Toast.makeText(this,"登录失败",Toast.LENGTH_LONG);
 
-            //myHttpConnect.getJson("");
-
+            }
         }
 
     }

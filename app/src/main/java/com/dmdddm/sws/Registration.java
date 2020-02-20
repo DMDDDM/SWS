@@ -2,13 +2,14 @@ package com.dmdddm.sws;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import static android.widget.Toast.*;
 
 public class Registration extends AppCompatActivity {
 
@@ -42,6 +43,19 @@ public class Registration extends AppCompatActivity {
                 }
                 else if(userPwd.getText().toString().equals(rePwd.getText().toString())){       //两次密码输入一样时
                     /**提交 用户名 密码**/
+                    String uName = userName.getText().toString();
+                    String uPwd = EncoderByMd5.getMD5String( userPwd.getText().toString());
+                    String path = "https://www.dmdddm.cn/SWS/LoginController?Mode=register&name="+uName+"&pwd="+uPwd;
+                    MyHttpConnect myHttpConnect = new MyHttpConnect();
+
+                    myHttpConnect.MyHttpconnect(path);
+
+                    myHttpConnect.getJson(new String[]{"InsertState"});
+
+                    userPwd.setText(uPwd);
+                    rePwd.setText(path);
+
+
                 }
                 else {      //两次密码输入不一样时
                     /**弹出对话框 显示"两次密码不一致"**/

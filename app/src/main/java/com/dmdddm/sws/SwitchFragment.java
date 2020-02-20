@@ -1,6 +1,5 @@
 package com.dmdddm.sws;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,11 +13,13 @@ public class SwitchFragment extends Fragment {
 
     private Button mFlash;
     private TextView textView;
-    private String text = null;
+    private String text = "";
+    private String[] result = new String[]{"","","",""};
     TextView textView2;
 
 
-    private String path = "https://www.dmdddm.cn/mini/Index";
+
+    private final String path = "https://www.dmdddm.cn/mini/Index";
 
     public SwitchFragment() {
         // Required empty public constructor
@@ -43,9 +44,18 @@ public class SwitchFragment extends Fragment {
         mFlash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //初始化
+                //text = "";
+                String[] item = {"WindSpeed","CO2","temperature"} ;
                 //获取数据
-                text = new MyHttpConnect().getJson(path);
+                MyHttpConnect myHttpConnect = new MyHttpConnect();
+                myHttpConnect.MyHttpconnect(path);
+                result =myHttpConnect.getJson(item);
+
+
+                for (int i =0;i<result.length;i++){
+                    text =text+ item[i]+":"+result[i]+"\n";
+                }
                 textView.setText(text);
 
 
