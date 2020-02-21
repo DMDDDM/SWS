@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -32,6 +33,14 @@ public class CenterFragment extends Fragment{
 
     public CenterFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2){
+            userName.setText(data.getStringExtra("UserName"));
+        }
     }
     /*
     * 区别：
@@ -64,7 +73,7 @@ public class CenterFragment extends Fragment{
         userName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(login);
+                startActivityForResult(login,1);
 
             }
         });

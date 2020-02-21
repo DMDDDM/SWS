@@ -1,5 +1,9 @@
 package com.dmdddm.sws;
 
+
+import android.os.Handler;
+import android.os.Message;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -14,11 +18,13 @@ public class MyHttpConnect {
     private
     String[] result={"","",""};
 
-    public void MyHttpconnect(String path1){
+    /**获取数据
+     * path 为要访问的url 地址
+     * item[] 为要接要拿出来的数据的key
+     * Handler 对象 用来实现多线程通信
+     * 时间**/
+    public String[] getJson(String path1 ,final String[] item, final Handler handler){
         path = path1;
-    }
-    /**获取数据**/
-    public String[] getJson(final String[] item){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -44,17 +50,24 @@ public class MyHttpConnect {
                             resultData.append(inputLine);
                         }
                         //获取json结果
-                        text = resultData.toString();
+                        text = resultData.toString();;
+                        parseJson(item);
                     }
                     reader.close();
                     inputStream.close();
                     conn.disconnect();
+
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                /**Message 使用**/
+                Message message = handler.obtainMessage();
+                message.what = 1;
+                message.obj = result;
+                handler.sendMessage(message);
             }
         }).start();
-        parseJson(item);
         return result;
     }
 
@@ -74,5 +87,4 @@ public class MyHttpConnect {
         }
         return result;
     }
-
 }

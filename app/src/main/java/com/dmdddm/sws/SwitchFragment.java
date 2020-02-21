@@ -1,7 +1,12 @@
 package com.dmdddm.sws;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +19,8 @@ public class SwitchFragment extends Fragment {
     private Button mFlash;
     private TextView textView;
     private String text = "";
-    private String[] result = new String[]{"","","",""};
+    private String[] result = new String[]{};
+    String[] item = {"WindSpeed","CO2","temperature"} ;
     TextView textView2;
 
 
@@ -45,25 +51,34 @@ public class SwitchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //初始化
-                //text = "";
-                String[] item = {"WindSpeed","CO2","temperature"} ;
+
+                text="";
                 //获取数据
                 MyHttpConnect myHttpConnect = new MyHttpConnect();
-                myHttpConnect.MyHttpconnect(path);
-                result =myHttpConnect.getJson(item);
-
-
-                for (int i =0;i<result.length;i++){
-                    text =text+ item[i]+":"+result[i]+"\n";
-                }
-                textView.setText(text);
-
-
+                result =myHttpConnect.getJson(path,item,handler);
             }
         });
         /****/
         return view;
     }
+    /**Handler对象
+     * 监听线程
+     * 线程完成
+     * 执行以下代码
+     * **/
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1){
+                for (int i=0;i<item.length;i++){
+                    text = text + item[i]+result[i]+"\n";
+                }
+                textView2.setText(text);
+            }
+        }
+    };
+
 
 
 

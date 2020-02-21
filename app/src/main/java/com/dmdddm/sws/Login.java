@@ -1,10 +1,13 @@
 package com.dmdddm.sws;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +27,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private ImageView uIamge;
     private TextView tRegistration;
     private TextView tForget;
+    private String[] result;
+    private Intent iFinish = new Intent();
+    private String name;
+    private Boolean LoginStatus = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +51,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         tForget = findViewById(R.id.Forget);
         tForget.setOnClickListener(this);
-
-
-
-
-
-
     }
 
     @Override
@@ -65,7 +67,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     /**登录函数**/
     public void login(){
-        String name = nameText.getText().toString();
+        name = nameText.getText().toString();
         String pwd = getMD5String(passwordText.getText().toString());
         String path = "https://www.dmdddm.cn/SWS/LoginController?Mode=login&name="+name+"&pwd="+pwd;
 
@@ -78,19 +80,35 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         //账号名不为空时
         else {
             MyHttpConnect myHttpConnect = new MyHttpConnect();
-            myHttpConnect.MyHttpconnect(path);
-            String[] result =  myHttpConnect.getJson(item);
-            if (result[0].equals("successful")){
-                /**登录成功**/
-                Toast.makeText(this,"登录成功",Toast.LENGTH_LONG);
-            }
-            else {
+            result =  myHttpConnect.getJson(path,item,handler);
 
-                /**登录失败**/
-                Toast.makeText(this,"登录失败",Toast.LENGTH_LONG);
-
-            }
         }
 
     }
+    /**Handler对象
+     * 监听线程
+     * 线程完成
+     * 执行以下代码
+     * **/
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1){
+                if (result[0].equals("successful")){
+                    /**登录成功**/
+                    LoginStatus = true;
+                    iFinish.putExtra("UserName",name);
+                    setResult(2,iFinish);
+                    finish();
+                }
+                else {
+                    /**登录失败**/
+                    passwordText.setHint("请重新输入");
+                    passwordText.setText("");
+
+                }
+            }
+        }
+    };
 }

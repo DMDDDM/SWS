@@ -1,15 +1,14 @@
 package com.dmdddm.sws;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import static android.widget.Toast.*;
 
 public class Registration extends AppCompatActivity {
 
@@ -17,6 +16,10 @@ public class Registration extends AppCompatActivity {
     private EditText userPwd;
     private EditText rePwd;
     private Button mRegist;
+    private  String uName;
+    private String uPwd;
+    private  String path;
+    private String[] InsertState;
 
 
     @Override
@@ -43,18 +46,13 @@ public class Registration extends AppCompatActivity {
                 }
                 else if(userPwd.getText().toString().equals(rePwd.getText().toString())){       //两次密码输入一样时
                     /**提交 用户名 密码**/
-                    String uName = userName.getText().toString();
-                    String uPwd = EncoderByMd5.getMD5String( userPwd.getText().toString());
-                    String path = "https://www.dmdddm.cn/SWS/LoginController?Mode=register&name="+uName+"&pwd="+uPwd;
+                    uName = userName.getText().toString();
+                    uPwd = EncoderByMd5.getMD5String( userPwd.getText().toString());
+                    path = "https://www.dmdddm.cn/SWS/LoginController?Mode=register&name="+uName+"&pwd="+uPwd;
+
+                    /**注册账号**/
                     MyHttpConnect myHttpConnect = new MyHttpConnect();
-
-                    myHttpConnect.MyHttpconnect(path);
-
-                    myHttpConnect.getJson(new String[]{"InsertState"});
-
-                    userPwd.setText(uPwd);
-                    rePwd.setText(path);
-
+                    InsertState = myHttpConnect.getJson(path,new String[]{"InsertState"},handler);
 
                 }
                 else {      //两次密码输入不一样时
@@ -68,4 +66,23 @@ public class Registration extends AppCompatActivity {
         });
 
     }
+    /**Handler对象
+     * 监听线程
+     * 线程完成
+     * 执行以下代码
+     * **/
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1){
+                if (InsertState[0].equals("successful")){
+                    /**注册成功**/
+                }
+                else {
+                    /**注册失败**/
+                }
+            }
+        }
+    };
 }
