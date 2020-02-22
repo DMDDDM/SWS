@@ -117,6 +117,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     setResult(2,iFinish);
                     finish();
                     /*****/
+                    /***/
                 }
                 else {
                     /**登录失败**/
