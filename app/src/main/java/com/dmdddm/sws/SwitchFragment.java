@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 
 public class SwitchFragment extends Fragment {
 
@@ -54,8 +57,15 @@ public class SwitchFragment extends Fragment {
 
                 text="";
                 //获取数据
-                MyHttpConnect myHttpConnect = new MyHttpConnect();
-                result =myHttpConnect.getJson(path,item,handler);
+                try {
+
+                    URL url = new URL(path);
+                    MyHttpConnect myHttpConnect = new MyHttpConnect();
+                    result =myHttpConnect.getJson(url,item,handler);
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
             }
         });
         /****/

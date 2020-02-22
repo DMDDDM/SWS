@@ -15,22 +15,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 import static com.dmdddm.sws.EncoderByMd5.getMD5String;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-
+    /**初始化控件**/
     private EditText nameText;
     private EditText passwordText;
+    private TextView inputError;
     private Button mLogin;
     private ImageView uIamge;
     private TextView tRegistration;
     private TextView tForget;
+    /**全局变量**/
     private String[] result;
     private Intent iFinish = new Intent();
     private String name;
-    private Boolean LoginStatus = false;
+    private URL url;
 
 
     @Override
@@ -41,6 +47,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         nameText = findViewById(R.id.uName);
         passwordText = findViewById(R.id.upwd);
+
         uIamge = findViewById(R.id.uImage);
 
         mLogin = findViewById(R.id.login);
@@ -51,6 +58,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         tForget = findViewById(R.id.Forget);
         tForget.setOnClickListener(this);
+
+        inputError = findViewById(R.id.inputError);
     }
 
     @Override
@@ -69,9 +78,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void login(){
         name = nameText.getText().toString();
         String pwd = getMD5String(passwordText.getText().toString());
-        String path = "https://www.dmdddm.cn/SWS/LoginController?Mode=login&name="+name+"&pwd="+pwd;
 
         String[] item={"LoginStatus"};
+
         //如果账号为空 事件
         if (name.isEmpty()){
             nameText.setHint("账户名不能为空!!!");
@@ -79,8 +88,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         //账号名不为空时
         else {
+            try {
+                url = new URL("https://www.dmdddm.cn/SWS/LoginController?Mode=login&name="+ URLEncoder.encode(name,"UTF-8")+"&pwd="+pwd);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             MyHttpConnect myHttpConnect = new MyHttpConnect();
-            result =  myHttpConnect.getJson(path,item,handler);
+            result =  myHttpConnect.getJson(url,item,handler);
 
         }
 
@@ -97,16 +113,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             if (msg.what == 1){
                 if (result[0].equals("successful")){
                     /**登录成功**/
-                    LoginStatus = true;
                     iFinish.putExtra("UserName",name);
                     setResult(2,iFinish);
                     finish();
+                    /*****/
                 }
                 else {
                     /**登录失败**/
-                    passwordText.setHint("请重新输入");
+                    inputError.setText("账号或密码有误!!请重新输入");
                     passwordText.setText("");
-
                 }
             }
         }

@@ -10,11 +10,14 @@ public class EncoderByMd5 {
     EncoderByMd5(){
 
     }
+    /**输入字符串 输出加密后的32位字符串**/
     public static String getMD5String(String string){
+        /**输入为空时返回空**/
         if (TextUtils.isEmpty(string)) {
             return "";
         }
 
+        /**输入字符串不为空时 初始化**/
         MessageDigest md5 = null;
         try {
             md5 = MessageDigest.getInstance("MD5");

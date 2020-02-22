@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+
 public class Registration extends AppCompatActivity {
 
     private EditText userName;
@@ -18,7 +23,6 @@ public class Registration extends AppCompatActivity {
     private Button mRegist;
     private  String uName;
     private String uPwd;
-    private  String path;
     private String[] InsertState;
 
 
@@ -48,11 +52,18 @@ public class Registration extends AppCompatActivity {
                     /**提交 用户名 密码**/
                     uName = userName.getText().toString();
                     uPwd = EncoderByMd5.getMD5String( userPwd.getText().toString());
-                    path = "https://www.dmdddm.cn/SWS/LoginController?Mode=register&name="+uName+"&pwd="+uPwd;
+                    try {
+                        URL url = new URL("https://www.dmdddm.cn/SWS/LoginController?Mode=register&name="+ URLEncoder.encode(uName,"UTF-8")+"&pwd="+uPwd);
 
-                    /**注册账号**/
-                    MyHttpConnect myHttpConnect = new MyHttpConnect();
-                    InsertState = myHttpConnect.getJson(path,new String[]{"InsertState"},handler);
+                        /**注册账号**/
+                        MyHttpConnect myHttpConnect = new MyHttpConnect();
+                        InsertState = myHttpConnect.getJson(url,new String[]{"InsertState"},handler);
+
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
 
                 }
                 else {      //两次密码输入不一样时

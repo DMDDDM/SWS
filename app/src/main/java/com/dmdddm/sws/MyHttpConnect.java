@@ -14,32 +14,31 @@ import java.net.URL;
 
 public class MyHttpConnect {
     private String text;
-    private String path;
-    private
-    String[] result={"","",""};
+    private String[] result={"","",""};
 
     /**获取数据
-     * path 为要访问的url 地址
+     * path 访问地址
      * item[] 为要接要拿出来的数据的key
      * Handler 对象 用来实现多线程通信
      * 时间**/
-    public String[] getJson(String path1 ,final String[] item, final Handler handler){
-        path = path1;
+    public String[] getJson(final URL url , final String[] item, final Handler handler){
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(path);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     //链接属性
-                    conn.setRequestMethod("GET");
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type","plain/text; charset=UTF-8");
                     conn.setConnectTimeout(5000);
                     conn.setUseCaches(true);
+
                     //开启链接
                     conn.connect();
                     //获取数据
                     InputStream inputStream = conn.getInputStream();
-                    InputStreamReader reader = new InputStreamReader(inputStream);
+                    InputStreamReader reader = new InputStreamReader(inputStream,"UTF-8");
                     //解析
                     BufferedReader bufferedReader = new BufferedReader(reader);
                     //状态码为200,链接成功
