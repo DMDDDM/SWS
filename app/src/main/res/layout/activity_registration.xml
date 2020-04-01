@@ -14,21 +14,26 @@
         <EditText
             android:id="@+id/Name"
             android:layout_width="300dp"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:hint="请输入用户名"/>
         <EditText
             android:id="@+id/pwd"
             android:layout_width="300dp"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:hint="输入密码"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:digits="0123456789/*-+.qwertyuioplkjhgfdsazxcvbnm"
+            android:inputType="textPassword"/>
         <EditText
             android:id="@+id/rWpd"
             android:layout_width="300dp"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:hint="确认密码"/>
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            android:digits="0123456789/*-+.qwertyuioplkjhgfdsazxcvbnm"
+            />
 
         <Button
             android:id="@+id/mRegist"

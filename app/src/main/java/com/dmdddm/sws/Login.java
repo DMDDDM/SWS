@@ -1,6 +1,7 @@
 package com.dmdddm.sws;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -40,6 +41,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**将注册成功时的账号密码 回传到本页面进行登录**/
+        if(requestCode == 1 && resultCode == 1){
+            nameText.setText(data.getStringExtra("UserName"));
+            passwordText.setText(data.getStringExtra("UserPwd"));
+        }
+        else if (requestCode == 1 && resultCode == 2){
+            Toast.makeText(getApplicationContext(),"注册失败",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -62,6 +76,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         inputError = findViewById(R.id.inputError);
     }
 
+
     @Override
     public void onClick(View view) {
         Intent iregistration = new Intent(this,Registration.class);
@@ -69,7 +84,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             case R.id.login :   //点击 登录 按钮点击事件
                 login();break;
             case R.id.registration:     //点击 免费注册 按钮 点击事件
-                startActivity(iregistration);break;
+                startActivityForResult(iregistration,1);break;
             default:;break;
         }
     }

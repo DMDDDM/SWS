@@ -37,7 +37,8 @@
             android:id="@+id/upwd"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:hint="密码"/>
+            android:hint="密码"
+            android:inputType="textPassword"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
