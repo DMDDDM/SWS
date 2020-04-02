@@ -115,10 +115,6 @@ public class Registration extends AppCompatActivity {
                     setResult(1,iFinish);
                     finish();
                 }
-                else if (InsertState[0].equals("AlreadyExists")){
-
-                    Toast.makeText(getApplicationContext(),"用户已存在,请重新输入用户名",Toast.LENGTH_LONG).show();
-                }
                 else {
                     /**注册失败**/
                     Toast.makeText(getApplicationContext(),"注册失败",Toast.LENGTH_LONG).show();
