@@ -29,6 +29,7 @@ public class CenterFragment extends Fragment{
     private TextView userName;
     private ListView listView;
     private List<Map<String,Object>> lists;
+    private Boolean isLogin= false;
 
     public CenterFragment() {
         // Required empty public constructor
@@ -39,6 +40,7 @@ public class CenterFragment extends Fragment{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 2){
             userName.setText(data.getStringExtra("UserName"));
+            isLogin = true;
         }
     }
     /*
@@ -72,8 +74,9 @@ public class CenterFragment extends Fragment{
         userName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(login,1);
-
+                if(!isLogin) {
+                    startActivityForResult(login, 1);
+                }
             }
         });
 
@@ -118,7 +121,10 @@ public class CenterFragment extends Fragment{
                         startActivity(iDeveloper);
                         break;
                     case 3:
-                        Toast.makeText(getActivity(),"第4个",Toast.LENGTH_SHORT).show();
+                        //退出账户
+                        //弹出对话框 点击确定后 清除数据 并退出账户
+                        userName.setText("点击登录");
+                        isLogin = false;
                         break;
                 }
             }

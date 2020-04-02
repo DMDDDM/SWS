@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,15 +26,13 @@ import java.net.URLEncoder;
 
 import static com.dmdddm.sws.EncoderByMd5.getMD5String;
 
-public class Login extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity implements View.OnClickListener , TextWatcher {
     /**初始化控件**/
     private EditText nameText;
     private EditText passwordText;
-    private TextView inputError;
     private Button mLogin;
     private ImageView uIamge;
     private TextView tRegistration;
-    private TextView tForget;
     /**全局变量**/
     private String[] result;
     private Intent iFinish = new Intent();
@@ -60,6 +60,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         getSupportActionBar().hide();//隐藏标题栏
 
         nameText = findViewById(R.id.uName);
+
         passwordText = findViewById(R.id.upwd);
 
         uIamge = findViewById(R.id.uImage);
@@ -70,10 +71,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         tRegistration = findViewById(R.id.registration);
         tRegistration.setOnClickListener(this);
 
-        tForget = findViewById(R.id.Forget);
-        tForget.setOnClickListener(this);
 
-        inputError = findViewById(R.id.inputError);
     }
 
 
@@ -146,10 +144,27 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 }
                 else {
                     /**登录失败**/
-                    inputError.setText("账号或密码有误!!请重新输入");
+                    Toast.makeText(getApplicationContext(),"账号或密码有误,请确认后输入",Toast.LENGTH_LONG).show();
                     passwordText.setText("");
                 }
             }
         }
     };
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        Toast.makeText(getApplicationContext(),"改变前",Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        Toast.makeText(getApplicationContext(),"改变中",Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        Toast.makeText(getApplicationContext(),"改变后",Toast.LENGTH_LONG).show();
+
+    }
 }
