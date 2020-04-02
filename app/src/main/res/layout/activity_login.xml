@@ -32,13 +32,18 @@
             android:id="@+id/uName"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:hint="账号" />
+            android:hint="请输入账号"
+            android:gravity="center"
+            android:background="@drawable/edit_circle_shape"/>
         <EditText
+            android:layout_marginTop="10dp"
             android:id="@+id/upwd"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:hint="密码"
-            android:inputType="textPassword"/>
+            android:hint="请输入密码"
+            android:gravity="center"
+            android:inputType="textPassword"
+            android:background="@drawable/edit_circle_shape"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"

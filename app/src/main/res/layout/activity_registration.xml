@@ -16,22 +16,30 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:background="@drawable/edit_circle_shape"
+            android:gravity="center"
             android:hint="请输入用户名"/>
         <EditText
+            android:layout_marginTop="20dp"
             android:id="@+id/pwd"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:hint="输入密码"
             android:layout_gravity="center"
+            android:background="@drawable/edit_circle_shape"
+            android:gravity="center"
             android:digits="0123456789/*-+.qwertyuioplkjhgfdsazxcvbnm"
             android:inputType="textPassword"/>
         <EditText
+            android:layout_marginTop="20dp"
             android:id="@+id/rWpd"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:hint="确认密码"
             android:inputType="textPassword"
+            android:background="@drawable/edit_circle_shape"
+            android:gravity="center"
             android:digits="0123456789/*-+.qwertyuioplkjhgfdsazxcvbnm"
             />
 

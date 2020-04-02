@@ -81,9 +81,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
         Intent iregistration = new Intent(this,Registration.class);
         switch (view.getId()){
-            case R.id.login :   //点击 登录 按钮点击事件
+            //点击 登录 按钮点击事件
+            case R.id.login :
                 login();break;
-            case R.id.registration:     //点击 免费注册 按钮 点击事件
+            //点击 免费注册 按钮 点击事件
+            case R.id.registration:
                 startActivityForResult(iregistration,1);break;
             default:;break;
         }
@@ -96,12 +98,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         String[] item={"LoginStatus"};
 
+        String[] PropertyName = {"Mode","name","pwd"};
+        String[] Property = {"login",name,pwd};
+
         //如果账号为空 事件
         if (name.isEmpty()){
             nameText.setHint("账户名不能为空!!!");
             nameText.setHintTextColor(Color.parseColor("#FF0000"));
         }
+        else if (passwordText.getText().toString().isEmpty()){
+            passwordText.setHint("密码不能为空!!!");
+            passwordText.setHintTextColor(Color.parseColor("#FF0000"));
+
+        }
         //账号名不为空时
+
         else {
             try {
                 url = new URL("https://www.dmdddm.cn/SWS/LoginController?Mode=login&name="+ URLEncoder.encode(name,"UTF-8")+"&pwd="+pwd);
@@ -132,7 +143,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     setResult(2,iFinish);
                     finish();
                     /*****/
-                    /***/
                 }
                 else {
                     /**登录失败**/

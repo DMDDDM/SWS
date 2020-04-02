@@ -49,8 +49,8 @@ public class MyHttpConnect {
                             resultData.append(inputLine);
                         }
                         //获取json结果
-                        text = resultData.toString();;
-                        parseJson(item);
+                        text = resultData.toString();
+                        parseJson(item,text);
                     }
                     reader.close();
                     inputStream.close();
@@ -71,7 +71,7 @@ public class MyHttpConnect {
     }
 
     /**解析json***/
-    public String[] parseJson(String[] item){
+    public String[] parseJson(String[] item,String text){
         //Toast.makeText(getActivity(),"parseJson",Toast.LENGTH_SHORT).show();
 
         try {
