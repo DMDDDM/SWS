@@ -65,6 +65,11 @@ public class Registration extends AppCompatActivity {
 
                         Toast.makeText(Registration.this,"密码不能超过16位,请重新输入!",Toast.LENGTH_LONG).show();
                     }
+
+                    else if (userName.getText().toString().length() > 10){
+
+                        Toast.makeText(Registration.this,"用户名不能超过10个字长,请重新输入!",Toast.LENGTH_LONG).show();
+                    }
                     else {
                         /**提交 用户名 密码**/
                         uName = userName.getText().toString();

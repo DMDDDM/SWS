@@ -21,6 +21,8 @@
             android:background="@drawable/button_circle_shape"
             android:layout_width="300dp"
             android:layout_height="60dp"
+            android:textColor="#FFF"
+            android:textSize="30dp"
             android:text="刷新"/>
         <TextView
             android:id="@+id/md5"
