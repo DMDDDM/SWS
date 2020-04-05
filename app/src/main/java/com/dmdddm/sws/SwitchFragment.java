@@ -48,7 +48,6 @@ public class SwitchFragment extends Fragment {
         //初始化控件
         mFlash = view.findViewById(R.id.flash);
         textView = view.findViewById(R.id.tips);
-        textView2 = view.findViewById(R.id.md5);
 
         mFlash.setOnClickListener(new View.OnClickListener() {
             @Override
