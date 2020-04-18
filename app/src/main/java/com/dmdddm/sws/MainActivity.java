@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         initFragments();
         getSupportActionBar().hide();
 
+        //创建一个MyDbOpenHelper
+        MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(this,null,null,1);
+
     }
     private void initFragments() {
         indexFragment = new IndexFragment();

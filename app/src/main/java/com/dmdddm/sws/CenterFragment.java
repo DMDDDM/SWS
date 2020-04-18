@@ -30,6 +30,7 @@ public class CenterFragment extends Fragment{
     private ListView listView;
     private List<Map<String,Object>> lists;
     private Boolean isLogin= false;
+    private String Tname = "";
 
     public CenterFragment() {
         // Required empty public constructor
@@ -39,7 +40,8 @@ public class CenterFragment extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 2){
-            userName.setText(data.getStringExtra("UserName"));
+            Tname = data.getStringExtra("UserName");
+            userName.setText(Tname);
             isLogin = true;
         }
     }
@@ -82,7 +84,7 @@ public class CenterFragment extends Fragment{
 
         /**listView填充**/
 
-        String[] Item = {"设置","账号安全","开发者模式","退出账户"};
+        String[] Item = {"设置","更改密码",/*"开发者模式",*/"退出账户"};
         int[] imageViews ={ R.drawable.setting,R.drawable.lock,R.drawable.develop,R.drawable.logout};
 
         lists = new ArrayList<>();
@@ -106,21 +108,39 @@ public class CenterFragment extends Fragment{
                 new int[]{R.id.ItemImage,R.id.ItemTitle});            //写入的控件id
         listView.setAdapter(simpleAdapter);                       //启动适配器
 
-        final Intent iDeveloper = new Intent(getActivity(),Developer.class);
+        //final Intent iDeveloper = new Intent(getActivity(),Developer.class);
+        //intent.putExtra("username",Tname);
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle bundle = new Bundle();
+                bundle.putString("username",Tname);
+
+                Intent intent = new Intent(getActivity(),ChangePassword.class);
+                intent.putExtras(bundle);
+
                 switch (i){
                     case 0:
                         Toast.makeText(getActivity(),"第1个",Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        Toast.makeText(getActivity(),"第2个",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"第2个",Toast.LENGTH_SHORT).show();
+                        //修改密码
+                        if (isLogin){
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_SHORT).show();
+                        }
+
+
                         break;
-                    case 2:
+                   /* case 2:
                         startActivity(iDeveloper);
-                        break;
-                    case 3:
+                        break;*/
+                    case 2:
                         //退出账户
                         //弹出对话框 点击确定后 清除数据 并退出账户
                         userName.setText("点击登录");

@@ -12,7 +12,9 @@
         android:roundIcon="@drawable/iconimage"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Developer"></activity>
+        <activity android:name=".ChangePassword"></activity>
+        <activity android:name=".AddDevice" />
+        <activity android:name=".Developer" />
         <activity android:name=".Registration" />
         <activity android:name=".Login" />
         <activity

@@ -24,7 +24,7 @@ public class Developer extends AppCompatActivity {
     private Button button;
     private List<Map<String,Object>> lists;
     private URL url;
-    private String[] result;
+    private String[] result={"","","","","","",""};
     private String[] item = {"WindSpeed","CO2","temperature","humidity"};
     private SimpleAdapter simpleAdapter;
 
@@ -41,9 +41,6 @@ public class Developer extends AppCompatActivity {
         listView = findViewById(R.id.developItem);
 
         /**填写listview控件**/
-        for (int i=0;i<item.length;i++){
-            result[i]="";
-        }
 
         try {
             url = new URL("https://www.dmdddm.cn/mini/Index");

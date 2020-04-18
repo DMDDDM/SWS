@@ -18,17 +18,11 @@
             android:layout_gravity="center"
             android:layout_width="100dp"
             android:layout_height="100dp" />
-        <TextView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/inputError"
-            android:text=""
-            android:textColor="#F00"
-            android:textSize="20dp"
-            />
+
 
         <EditText
+            android:maxLength="10"
+            android:layout_marginTop="30dp"
             android:id="@+id/uName"
             android:layout_width="300dp"
             android:layout_height="50dp"
@@ -43,6 +37,8 @@
             android:hint="请输入密码"
             android:gravity="center"
             android:inputType="textPassword"
+            android:digits="0123456789/*-+.qwertyuioplkjhgfdsazxcvbnm"
+            android:maxLength="16"
             android:background="@drawable/edit_circle_shape"/>
 
             <TextView

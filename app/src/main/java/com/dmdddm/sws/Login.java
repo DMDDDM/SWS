@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +39,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener , T
     private Intent iFinish = new Intent();
     private String name;
     private URL url;
+    private MySQLiteHelper mySQLiteHelper;
+    private String pwd;
 
 
     @Override
@@ -71,7 +74,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener , T
         tRegistration = findViewById(R.id.registration);
         tRegistration.setOnClickListener(this);
 
-
+        mySQLiteHelper = new MySQLiteHelper(this,"SWS",null,1);
     }
 
 
@@ -92,10 +95,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener , T
     /**登录函数**/
     public void login(){
         name = nameText.getText().toString();
-        String pwd = getMD5String(passwordText.getText().toString());
+        pwd = getMD5String(passwordText.getText().toString());
 
         String[] item={"LoginStatus"};
-
         String[] PropertyName = {"Mode","name","pwd"};
         String[] Property = {"login",name,pwd};
 
@@ -137,6 +139,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener , T
             if (msg.what == 1){
                 if (result[0].equals("successful")){
                     /**登录成功**/
+                    //保存到数据库
+                    //SQLiteDatabase db = mySQLiteHelper.getWritableDatabase();
+                    //db.execSQL("INSERT INTO info(name,pwd) VALUES(?,?)",new String[]{name,pwd});
+                    //db.close();
+
                     iFinish.putExtra("UserName",name);
                     setResult(2,iFinish);
                     finish();
