@@ -1,6 +1,10 @@
 package com.dmdddm.sws;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -11,12 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
 public class IndexFragment extends Fragment {
     private Button Manual;
     private Button Auto;
+    private boolean isAuto = false;
+    private boolean isManul = false;
+
 
     public IndexFragment() {
         // Required empty public constructor
@@ -32,7 +40,7 @@ public class IndexFragment extends Fragment {
         // Inflate the layout for this fragment
 
 
-        View view = inflater.inflate(R.layout.fragment_index, container, false);
+        final View view = inflater.inflate(R.layout.fragment_index, container, false);
         Manual = view.findViewById(R.id.Manual);
         Auto = view.findViewById(R.id.Auto);
         //手动模式点击事件
@@ -40,7 +48,21 @@ public class IndexFragment extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"手动模式已启动",Toast.LENGTH_LONG).show();
+
+                if (!isManul){
+                    MyDialog("手动模式");
+                   //自动模式 变色
+                    GradientDrawable gd = (GradientDrawable)Manual.getBackground();
+                    gd.setColor(R.color.gray);
+                    if (isAuto) {
+                        GradientDrawable gd2 = (GradientDrawable)Auto.getBackground();
+                        gd2.setColor(R.color.purple);
+
+                    }
+                    isManul = true;
+                    isAuto = false;
+                }
+                //Toast.makeText(getActivity(),"手动模式已启动",Toast.LENGTH_LONG).show();
             }
         });
         //智能模式点击事件
@@ -48,7 +70,21 @@ public class IndexFragment extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"自动模式已启动",Toast.LENGTH_LONG).show();
+                if (!isAuto){
+                    MyDialog("自动模式");
+
+                    //智能模式 变色
+                    GradientDrawable gd = (GradientDrawable)Auto.getBackground();
+                    gd.setColor(R.color.gray);
+                    if (isManul) {
+                        GradientDrawable gd2 = (GradientDrawable)Manual.getBackground();
+                        gd2.setColor(R.color.purple);
+
+                    }
+                    isAuto = true;
+                    isManul = false;
+                }
+                //Toast.makeText(getActivity(),"自动模式已启动",Toast.LENGTH_LONG).show();
 
             }
         });
@@ -56,10 +92,21 @@ public class IndexFragment extends Fragment {
         return view;
     }
 
+    public void MyDialog(String mode){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        //设置Title图标
+        builder.setIcon(R.drawable.default_avatar);
 
+        builder.setTitle("转换模式成功");
+        builder.setMessage("当前模式为:"+mode);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+            }
+        });
+        builder.show();
+
     }
+
 }

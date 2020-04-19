@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:background="@drawable/btn_change_color"
+            android:background="@drawable/button_circle_shape"
             android:text="手动模式"
             android:textColor="#FFF"
             android:textSize="20dp"/>
@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:background="@drawable/btn_change_color"
+            android:background="@drawable/button_circle_shape"
             android:text="智能模式"
             android:textColor="#FFF"
             android:textSize="20dp"
