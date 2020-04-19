@@ -3,6 +3,7 @@ package com.dmdddm.sws;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -106,6 +107,7 @@ public class Registration extends AppCompatActivity {
      * 线程完成
      * 执行以下代码
      * **/
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {

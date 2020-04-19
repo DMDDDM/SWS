@@ -1,9 +1,11 @@
 package com.dmdddm.sws;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -32,17 +34,54 @@ public class SwitchFragment extends Fragment {
     private TextView textView;
     private String text = "";
     private String[] result = new String[]{};
-    String[] item = {"WindSpeed","CO2","temperature"} ;
     TextView textView2;
     private ListView listView;
     private List<Map<String,Object>> lists;
+    private int itemIndex = 0;
+
+
+    private SimpleAdapter simpleAdapter;
+
+
+    private String[] item1 = {"","","","","","","","","",""};
+    private String[] item2 = {"","","","","","","","","",""};
+    private String[] item3 = {"","","","","","","","","",""};
+    private String[] item4 = {"","","","","","","","","",""};
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 1){
+
+            String cityName =data.getStringExtra("city");
+            String weather =data.getStringExtra("weather");
+            String Number =data.getStringExtra("number");
+
+            item1[itemIndex] = cityName;
+            item2[itemIndex] = weather;
+            item3[itemIndex] = Number;
+            item4[itemIndex] = "OFF";
+
+            Map<String,Object> map =new HashMap<>();
+            map.put("item1",item1[itemIndex]);
+            map.put("item2",item2[itemIndex]);
+            map.put("item3",item3[itemIndex]);
+            map.put("item4",item4[itemIndex]);
+            lists.add(map);
+            itemIndex++;
+
+            simpleAdapter.notifyDataSetChanged();
+
+        }
+    }
+
 
     @Override
     public void onStart() {
         super.onStart();
     }
 
-    private final String path = "https://www.dmdddm.cn/mini/Index";
 
     public SwitchFragment() {
         // Required empty public constructor
@@ -54,7 +93,7 @@ public class SwitchFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_switch, container, false);
@@ -67,54 +106,62 @@ public class SwitchFragment extends Fragment {
         mFlash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),AddDevice.class);
-                startActivity(intent);
+                if(itemIndex<=10){
+                    Intent intent = new Intent(getActivity(),AddDevice.class);
+                    startActivityForResult(intent,1);
+                }
+                else{
+                    Toast.makeText(getActivity(),"试用版最多可添加10个设备",Toast.LENGTH_SHORT).show();
+                }
             }
+
         });
 
 
         /**listView填充**/
 
-        String[] Item = {"设备名","设备1","设备2","设备3"};
-        String[] item2 ={"设备状态","开","开","开"};
-
         lists = new ArrayList<>();
-        for(int i = 0;i < Item.length;i++){
+        for(int i = 0;i < itemIndex;i++){
             Map<String,Object> map =new HashMap<>();
-            map.put("Item",Item[i]);
-            map.put("Item2",item2[i]);
+            map.put("item1",item1[i]);
+            map.put("item2",item2[i]);
+            map.put("item3",item3[i]);
+            map.put("item4",item4[i]);
             lists.add(map);
         }
         /**
          * fragment适配器上下文使用getActivity
          * 2020年2月14日21:10:49
          * **/
-        SimpleAdapter simpleAdapter;
         simpleAdapter = new SimpleAdapter(
                 getActivity(),                                        //上下文
                 lists,                                                //写入
-                R.layout.listview_switch,                               //listview模板
-                new String[]{"Item2","Item"},                         //与第二个参数的key名称相同
-                new int[]{R.id.deviceName,R.id.deviceStatus});            //写入的控件id
+                R.layout.item_device,                               //listview模板
+                new String[]{"item1","item2","item3","item4"},                         //与第二个参数的key名称相同
+                new int[]{R.id.city,R.id.cityweather,R.id.device_no,R.id.wStatus});            //写入的控件id
         listView.setAdapter(simpleAdapter);                       //启动适配器
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
-                    case 0:
-                        Toast.makeText(getActivity(),"第1个",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        Toast.makeText(getActivity(),"第2个",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        Toast.makeText(getActivity(),"第3个",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
-                        Toast.makeText(getActivity(),"第4个",Toast.LENGTH_SHORT).show();
-                        break;
+                lists.clear();
+                if (item4[i].equals("OFF")){
+                    item4[i] ="ON";
                 }
+                else{
+                    item4[i] = "OFF";
+                }
+                for (int h=0;h<itemIndex;h++){
+
+                    Map<String,Object> map =new HashMap<>();
+                    map.put("item1",item1[h]);
+                    map.put("item2",item2[h]);
+                    map.put("item3",item3[h]);
+                    map.put("item4",item4[h]);
+                    lists.add(map);
+                }
+                simpleAdapter.notifyDataSetChanged();
+
             }
         });
 
@@ -129,15 +176,13 @@ public class SwitchFragment extends Fragment {
      * 线程完成
      * 执行以下代码
      * **/
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             if (msg.what == 1){
-                for (int i=0;i<item.length;i++){
-                    text = text + item[i]+result[i]+"\n";
-                }
-                textView2.setText(text);
+
             }
         }
     };

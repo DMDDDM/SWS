@@ -12,8 +12,31 @@
         android:gravity="center"
         android:orientation="vertical"
         >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="添加设备"
+            android:textColor="#000"
+            android:textSize="50dp"
+            android:layout_marginBottom="50dp"
+            />
+
         <EditText
             android:maxLength="10"
+            android:id="@+id/deviceNumber"
+            android:gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:hint="请输入设备号"
+            android:background="@drawable/edit_circle_shape"
+            android:digits="0123456789"
+
+            />
+        <EditText
+            android:maxLength="10"
+            android:layout_marginTop="20dp"
             android:id="@+id/cityName"
             android:gravity="center"
             android:layout_width="300dp"
@@ -21,15 +44,6 @@
             android:hint="请输入所在城市"
             android:background="@drawable/edit_circle_shape"/>
 
-        <EditText
-            android:maxLength="10"
-            android:id="@+id/deviceNumber"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:hint="请输入设备号"
-            android:background="@drawable/edit_circle_shape"/>
         <Button
             android:layout_marginTop="30dp"
             android:id="@+id/determine"

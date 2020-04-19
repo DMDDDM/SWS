@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".IndexFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="智能窗户开关器"
+        android:textColor="#000"
+        android:textSize="50dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Smart window switch"
+        android:textColor="#000"
+        android:textSize="30dp"
+        android:layout_marginBottom="50dp"
+        />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
         <Button
@@ -14,7 +34,7 @@
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:background="@drawable/button_circle_shape"
+            android:background="@drawable/btn_change_color"
             android:text="手动模式"
             android:textColor="#FFF"
             android:textSize="20dp"/>
@@ -24,10 +44,10 @@
             android:layout_gravity="center"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:background="@drawable/button_circle_shape"
+            android:background="@drawable/btn_change_color"
             android:text="智能模式"
             android:textColor="#FFF"
             android:textSize="20dp"
             />
     </LinearLayout>
-</FrameLayout>
+</LinearLayout>

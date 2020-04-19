@@ -108,10 +108,6 @@ public class CenterFragment extends Fragment{
                 new int[]{R.id.ItemImage,R.id.ItemTitle});            //写入的控件id
         listView.setAdapter(simpleAdapter);                       //启动适配器
 
-        //final Intent iDeveloper = new Intent(getActivity(),Developer.class);
-        //intent.putExtra("username",Tname);
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -123,7 +119,7 @@ public class CenterFragment extends Fragment{
 
                 switch (i){
                     case 0:
-                        Toast.makeText(getActivity(),"第1个",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"尚未开放",Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         //Toast.makeText(getActivity(),"第2个",Toast.LENGTH_SHORT).show();
@@ -134,8 +130,6 @@ public class CenterFragment extends Fragment{
                         else {
                             Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_SHORT).show();
                         }
-
-
                         break;
                    /* case 2:
                         startActivity(iDeveloper);
@@ -143,8 +137,13 @@ public class CenterFragment extends Fragment{
                     case 2:
                         //退出账户
                         //弹出对话框 点击确定后 清除数据 并退出账户
-                        userName.setText("点击登录");
-                        isLogin = false;
+                        if(isLogin){
+                            userName.setText("点击登录");
+                            isLogin = false;
+                        }
+                        else{
+                            Toast.makeText(getActivity(),"请先登录",Toast.LENGTH_SHORT).show();
+                        }
                         break;
                 }
             }

@@ -3,6 +3,7 @@ package com.dmdddm.sws;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -81,6 +82,7 @@ public class Developer extends AppCompatActivity {
      * 线程完成
      * 执行以下代码
      * **/
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {

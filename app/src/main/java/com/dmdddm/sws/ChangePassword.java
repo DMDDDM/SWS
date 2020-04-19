@@ -76,8 +76,6 @@ public class ChangePassword extends AppCompatActivity {
                     //密码的长度合适,进行查询旧密码是否正确
                     else {
                         newpwdString = getMD5String(newpwd.getText().toString());
-                        Toast.makeText(ChangePassword.this, "进入1", Toast.LENGTH_LONG).show();
-
                         try {
                             url = new URL("https://www.dmdddm.cn/SWS/LoginController?Mode=login&name="+ URLEncoder.encode(UserName,"UTF-8")+"&pwd="+pwd);
                         } catch (MalformedURLException e) {
@@ -125,7 +123,7 @@ public class ChangePassword extends AppCompatActivity {
 
                 }
                 else{
-                    Toast.makeText(ChangePassword.this, "旧密码输入错误", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ChangePassword.this, "旧密码错误", Toast.LENGTH_LONG).show();
                 }
             }
         }
