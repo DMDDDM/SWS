@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,12 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.dmdddm.sws.VerifyStoragePermissions.verifyStoragePermissions;
 
 
 public class CenterFragment extends Fragment{
@@ -43,6 +43,9 @@ public class CenterFragment extends Fragment{
             Tname = data.getStringExtra("UserName");
             userName.setText(Tname);
             isLogin = true;
+
+
+
         }
     }
     /*
@@ -119,7 +122,9 @@ public class CenterFragment extends Fragment{
 
                 switch (i){
                     case 0:
-                        Toast.makeText(getActivity(),"尚未开放",Toast.LENGTH_SHORT).show();
+
+                       // verifyStoragePermissions(getActivity());
+                        Toast.makeText(getActivity(),"暂未开放",Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
                         //Toast.makeText(getActivity(),"第2个",Toast.LENGTH_SHORT).show();
@@ -154,6 +159,5 @@ public class CenterFragment extends Fragment{
     /*******/
         return view;
     }
-
 
 }

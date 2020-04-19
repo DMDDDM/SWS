@@ -1,16 +1,26 @@
 package com.dmdddm.sws;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import static com.dmdddm.sws.VerifyStoragePermissions.verifyStoragePermissions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         //创建一个MyDbOpenHelper
-        MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(this,null,null,1);
+        //MySQLiteHelper mySQLiteHelper = new MySQLiteHelper(this,null,null,1);
 
     }
     private void initFragments() {
@@ -90,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
         }
         transaction.show(fragments[index]).commitAllowingStateLoss();
     }
-
 
 
 }

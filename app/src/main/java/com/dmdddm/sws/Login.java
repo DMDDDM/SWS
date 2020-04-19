@@ -26,6 +26,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import static com.dmdddm.sws.EncoderByMd5.getMD5String;
+import static com.dmdddm.sws.VerifyStoragePermissions.verifyStoragePermissions;
 
 public class Login extends AppCompatActivity implements View.OnClickListener , TextWatcher {
     /**初始化控件**/
@@ -39,7 +40,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener , T
     private Intent iFinish = new Intent();
     private String name;
     private URL url;
-    private MySQLiteHelper mySQLiteHelper;
     private String pwd;
 
 
@@ -50,6 +50,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener , T
         if(requestCode == 1 && resultCode == 1){
             nameText.setText(data.getStringExtra("UserName"));
             passwordText.setText(data.getStringExtra("UserPwd"));
+
         }
         else if (requestCode == 1 && resultCode == 2){
             Toast.makeText(getApplicationContext(),"注册失败",Toast.LENGTH_LONG).show();
@@ -74,7 +75,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener , T
         tRegistration = findViewById(R.id.registration);
         tRegistration.setOnClickListener(this);
 
-        mySQLiteHelper = new MySQLiteHelper(this,"SWS",null,1);
+
     }
 
 
@@ -144,6 +145,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener , T
                     //SQLiteDatabase db = mySQLiteHelper.getWritableDatabase();
                     //db.execSQL("INSERT INTO info(name,pwd) VALUES(?,?)",new String[]{name,pwd});
                     //db.close();
+
+
+
 
                     iFinish.putExtra("UserName",name);
                     setResult(2,iFinish);
